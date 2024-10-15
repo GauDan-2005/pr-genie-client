@@ -32,7 +32,7 @@ const GitHubCallback = () => {
     };
 
     fetchToken();
-  }, [navigate]);
+  }, []);
 
   return <div>Authenticating...</div>;
 };

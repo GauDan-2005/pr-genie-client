@@ -46,6 +46,8 @@ function App() {
             path="/login"
             element={<Login onLogin={handleGitHubLogin} />}
           />
+          <Route path="/auth/github/callback" element={<GitHubCallback />} />
+
           <Route path="/*" element={<Login onLogin={handleGitHubLogin} />} />
         </Routes>
       )}

@@ -12,8 +12,10 @@ export default defineConfig({
     proxy: {
       "/auth": {
         target: process.env.VITE_BACKEND_URL, // Access the backend URL
-        changeOrigin: true,
-        secure: true,
+        changeOrigin: true, // Change origin to match the backend server
+        secure: false, // Not needed unless using self-signed certificates
+        cookieDomainRewrite: "", // Optional: rewrite domain to handle cookies
+        cookiePathRewrite: "/", // Optional: rewrite path for cookies
       },
     },
   },

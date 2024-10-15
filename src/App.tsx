@@ -7,7 +7,7 @@ import axios from "axios";
 import GitHubCallback from "./pages/GithubCallback/GithubCallback";
 
 function App() {
-  const [user, setUser] = useState(null); // Store the user data
+  const [userToken, setUserToken] = useState(null); // Store the user data
   const { handleGitHubLogin } = useUser();
 
   const checkLoginStatus = async () => {
@@ -20,11 +20,11 @@ function App() {
       );
 
       if (response.data.user) {
-        setUser(response.data.user); // Set user data if authenticated
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+        setUserToken(response.data.user); // Set user data if authenticated
+        localStorage.setItem("user", JSON.stringify(response.data.accessToken));
       }
     } catch (error) {
-      setUser(null); // Set user as null if not authenticated
+      setUserToken(null); // Set user as null if not authenticated
       console.log(error);
     }
   };
@@ -35,10 +35,13 @@ function App() {
 
   return (
     <div className="App">
-      {user ? (
+      {userToken ? (
         <Routes>
-          <Route path="/dashboard" element={<Dashboard user={user} />} />
-          <Route path="/*" element={<Dashboard user={user} />} />
+          <Route
+            path="/dashboard"
+            element={<Dashboard userToken={userToken} />}
+          />
+          <Route path="/*" element={<Dashboard userToken={userToken} />} />
         </Routes>
       ) : (
         <Routes>

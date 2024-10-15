@@ -5,12 +5,6 @@ import { errorToast, successToast } from "../../lib/toast";
 import RepoCard from "../../components/RepoCard/RepoCard";
 import useWebhooks from "../../api/useWebhooks";
 
-type User = {
-  id: string;
-  name: string;
-  email: string;
-};
-
 type Repo = {
   name: string;
   full_name: string;
@@ -30,10 +24,10 @@ type Repo = {
 type Repos = Repo[];
 
 type Props = {
-  user: User; // Adjust type to match your user object shape, e.g., `null | { id: string; name: string; }`
+  userToken: string;
 };
 
-const Dashboard = ({ user }: Props) => {
+const Dashboard = ({ userToken }: Props) => {
   const [repos, setRepos] = useState<Repos>([]); // Set the type of repos as Repos (Repo[])
 
   const { getUserRepos, logoutUser } = useUser();
@@ -89,9 +83,9 @@ const Dashboard = ({ user }: Props) => {
   return (
     <div className={styles.dashboard}>
       <h1>Dashboard</h1>
-      {user ? (
+      {userToken ? (
         <>
-          <p>Welcome, {user.name}!</p>
+          <p>Welcome, User!</p>
           <button onClick={() => logoutUser()}>Logout</button>
           {repos.map((repo, idx) => (
             <RepoCard

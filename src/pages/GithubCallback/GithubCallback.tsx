@@ -6,6 +6,8 @@ import { errorToast } from "../../lib/toast";
 const GitHubCallback = () => {
   const navigate = useNavigate();
 
+  console.log("callback");
+
   useEffect(() => {
     const fetchToken = async () => {
       const urlParams = new URLSearchParams(window.location.search);
@@ -22,6 +24,7 @@ const GitHubCallback = () => {
           errorToast("Authentication failed");
           return;
         }
+        console.log(response.status);
         navigate("/dashboard");
       } catch (error) {
         console.error("Error during GitHub authentication", error);

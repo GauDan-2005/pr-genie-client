@@ -8,7 +8,7 @@ import GitHubCallback from "./pages/GithubCallback/GithubCallback";
 import { ToastContainer } from "react-toastify";
 
 function App() {
-  const [user, setUser] = useState(null); // Store the user data
+  const [user, setUser] = useState(null);
   const { handleGitHubLogin } = useUser();
 
   const checkLoginStatus = async () => {
@@ -19,19 +19,19 @@ function App() {
           withCredentials: true,
         }
       );
-
-      if (response.data.user) {
-        setUser(response.data.user); // Set user data if authenticated
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+      console.log(response);
+      if (response.data) {
+        setUser(response.data); // Set user data if authenticated
+        localStorage.setItem("user", JSON.stringify(response.data));
       }
     } catch (error) {
-      setUser(null); // Set user as null if not authenticated
+      setUser(null);
       console.log(error);
     }
   };
 
   useEffect(() => {
-    checkLoginStatus(); // Check authentication status on mount
+    checkLoginStatus();
   }, []);
 
   return (

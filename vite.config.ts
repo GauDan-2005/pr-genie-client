@@ -13,7 +13,7 @@ export default defineConfig({
       "/auth": {
         target: process.env.VITE_BACKEND_URL, // Access the backend URL
         changeOrigin: true,
-        secure: false,
+        secure: true,
       },
     },
   },

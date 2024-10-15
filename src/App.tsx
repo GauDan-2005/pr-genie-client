@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import useUser from "./api/useUser";
 import axios from "axios";
 import GitHubCallback from "./pages/GithubCallback/GithubCallback";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [user, setUser] = useState(null); // Store the user data
@@ -38,7 +39,7 @@ function App() {
       {user ? (
         <Routes>
           <Route path="/dashboard" element={<Dashboard user={user} />} />
-          <Route path="/*" element={<Dashboard user={user} />} />
+          <Route path="/*" element={<Navigate to="/dashboard" />} />
         </Routes>
       ) : (
         <Routes>
@@ -48,9 +49,10 @@ function App() {
           />
           <Route path="/auth/github/callback" element={<GitHubCallback />} />
 
-          <Route path="/*" element={<Login onLogin={handleGitHubLogin} />} />
+          <Route path="/*" element={<Navigate to="/login" />} />
         </Routes>
       )}
+      <ToastContainer />
     </div>
   );
 }

@@ -18,13 +18,10 @@ const GitHubCallback = () => {
           }/auth/github/callback?code=${code}`
         );
 
-        console.log(response);
-
         if (response.status !== 200) {
           errorToast("Authentication failed");
           return;
         }
-
         navigate("/dashboard");
       } catch (error) {
         console.error("Error during GitHub authentication", error);

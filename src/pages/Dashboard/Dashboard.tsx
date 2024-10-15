@@ -91,18 +91,22 @@ const Dashboard = ({ user }: Props) => {
       <h1>Dashboard</h1>
       {user ? (
         <>
-          <p>Welcome, {user.name}!</p>
-          <button onClick={() => logoutUser()}>Logout</button>
-          {repos.map((repo, idx) => (
-            <RepoCard
-              key={idx}
-              data={repo}
-              onClick={() => {
-                handleCreateWebhook(repo);
-                console.log("clicked");
-              }}
-            />
-          ))}
+          <h3>Welcome, {user.name}!</h3>
+          <button className={styles.logout_btn} onClick={() => logoutUser()}>
+            Logout
+          </button>
+          <div className={styles.repo_wrapper}>
+            {repos.map((repo, idx) => (
+              <RepoCard
+                key={idx}
+                data={repo}
+                onClick={() => {
+                  handleCreateWebhook(repo);
+                  console.log("clicked");
+                }}
+              />
+            ))}
+          </div>
         </>
       ) : (
         <p>Please log in</p>

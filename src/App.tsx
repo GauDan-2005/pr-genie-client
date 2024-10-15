@@ -38,11 +38,15 @@ function App() {
       {user ? (
         <Routes>
           <Route path="/dashboard" element={<Dashboard user={user} />} />
+          <Route path="/*" element={<Dashboard user={user} />} />
         </Routes>
       ) : (
         <Routes>
-          <Route path="/" element={<Login onLogin={handleGitHubLogin} />} />
-          {/* <Route path="/*" element={<Login onLogin={handleGitHubLogin} />} /> */}
+          <Route
+            path="/login"
+            element={<Login onLogin={handleGitHubLogin} />}
+          />
+          <Route path="/*" element={<Login onLogin={handleGitHubLogin} />} />
         </Routes>
       )}
     </div>

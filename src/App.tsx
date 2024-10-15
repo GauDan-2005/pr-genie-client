@@ -3,8 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import useUser from "./api/useUser";
-// import { errorToast } from "./lib/toast";
 import axios from "axios";
+import GitHubCallback from "./pages/GithubCallback/GithubCallback";
 
 function App() {
   const [user, setUser] = useState(null); // Store the user data

@@ -36,20 +36,18 @@ function App() {
   return (
     <div className="App">
       {user ? (
-        <>
-          <Routes>
-            <Route path="/dashboard" element={<Dashboard user={user} />} />
-            <Route path="/*" element={<Dashboard user={user} />} />
-          </Routes>
-        </>
+        <Routes>
+          <Route path="/dashboard" element={<Dashboard user={user} />} />
+          <Route path="/*" element={<Dashboard user={user} />} />
+        </Routes>
       ) : (
-        <>
+        <Routes>
           <Route
             path="/login"
             element={<Login onLogin={handleGitHubLogin} />}
           />
           <Route path="/*" element={<Login onLogin={handleGitHubLogin} />} />
-        </>
+        </Routes>
       )}
     </div>
   );

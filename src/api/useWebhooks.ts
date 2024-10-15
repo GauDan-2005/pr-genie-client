@@ -1,46 +1,29 @@
 import { useState } from "react";
+import axios from "axios";
 
-const useUnsplash = () => {
-  const [loadingImg, setLoadingImg] = useState(false);
+const useWebhooks = () => {
+  const [loading, setLoading] = useState(false);
 
-  const getThemeImages = async (payload, cb) => {
+  const createWebhook = async (repoName: string) => {
+    setLoading(true);
     try {
-      setLoadingImg(true);
-      const response = await fetch(
-        `https://api.unsplash.com/photos/random?${
-          payload ? `&count=${payload.count}` : ""
-        }${payload ? `&query=${payload.theme}` : ""}`,
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/webhooks/create-webhook`,
+        { repo: repoName }, // Pass repo name and owner
         {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Client-ID ${
-              import.meta.env.VITE_UNSPLASH_ACCESS_KEY
-            }`,
-          },
-        },
+          withCredentials: true, // Include credentials to allow session cookies
+        }
       );
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "Some error occurred, please try again");
-      }
-
-      const data = await response.json();
-      if (cb && typeof cb === "function") {
-        cb(data);
-      }
+      setLoading(false);
+      return response.data;
     } catch (err) {
-      console.error(err);
-      cb(null, err);
-    } finally {
-      setLoadingImg(false);
+      setLoading(false);
+      console.error("Error creating webhook:", err);
+      return { message: "Error creating webhook" };
     }
   };
 
-  return {
-    loadingImg,
-    getThemeImages,
-  };
+  return { loading, createWebhook };
 };
 
-export default useUnsplash;
+export default useWebhooks;

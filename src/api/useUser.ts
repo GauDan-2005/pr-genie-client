@@ -33,7 +33,7 @@ const useUser = () => {
   };
 
   const getUserRepos = async (
-    cb: (data: object | null, err: Error | unknown) => void
+    cb: (data: [] | null, err: Error | unknown) => void
   ) => {
     try {
       setLoading(true);
@@ -64,11 +64,39 @@ const useUser = () => {
     }
   };
 
+  const logoutUser = async () => {
+    try {
+      setLoading(true);
+      // Send logout request to the backend
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/auth/logout`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (response.status !== 200) {
+        throw new Error(
+          response.data.error || "Logout unsuccessful, Try again"
+        );
+      }
+
+      localStorage.removeItem("user");
+
+      window.location.href = "/";
+    } catch (err) {
+      console.error("Logout failed", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     loading,
     getUserRepos,
     handleGitHubLogin,
     handleGitHubCallback,
+    logoutUser,
   };
 };
 

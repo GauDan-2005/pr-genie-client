@@ -1,11 +1,12 @@
-const Login = () => {
-  const loginWithGithub = () => {
-    // Redirect to the backend's GitHub auth route
-    window.location.href = "/auth/github";
-  };
+type Peops = {
+  onLogin: () => void; // Define the onLogin prop type
+};
+
+const Login = (props: Peops) => {
   return (
     <div>
-      <button onClick={loginWithGithub}>Login with GitHub</button>
+      <h1>Login with Github</h1>
+      <button onClick={props.onLogin}>Login with GitHub</button>
     </div>
   );
 };

@@ -7,9 +7,9 @@ export default defineConfig({
   server: {
     proxy: {
       "/auth": {
-        target: "https://pr-genie-server.onrender.com", // Backend server
+        target: process.env.VITE_BACKEND_URL, // Use process.env to access environment variables
         changeOrigin: true,
-        secure: false,
+        secure: true,
       },
     },
   },

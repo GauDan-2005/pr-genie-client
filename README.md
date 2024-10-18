@@ -4,6 +4,9 @@ PR Genie is a web-based platform designed to streamline the GitHub Pull Request 
 
 ## Video Explanation
 
+https://github.com/user-attachments/assets/0e06b4a4-2cda-44e6-a619-a3e55002b95f
+
+
 
 
 ## Features

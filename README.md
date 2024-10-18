@@ -2,7 +2,7 @@
 
 PR Genie is a web-based platform designed to streamline the GitHub Pull Request (PR) review process with the help of AI. This repository contains the frontend code for PR Genie, built with React and integrated with GitHub OAuth for seamless authentication and interaction with user repositories.
 
-##Video
+## Video Explanation
 
 
 

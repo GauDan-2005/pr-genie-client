@@ -17,7 +17,12 @@ const GitHubCallback = () => {
         const response = await axios.get(
           `${
             import.meta.env.VITE_BACKEND_URL
-          }/auth/github/callback?code=${code}`
+          }/auth/github/callback?code=${code}`,
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
         );
 
         if (response.status !== 200) {

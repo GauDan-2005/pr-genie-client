@@ -11,7 +11,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/auth": {
-        target: process.env.VITE_BACKEND_URL, // Access the backend URL
+        target: process.env.VITE_BACKEND_URL,
         changeOrigin: true,
         secure: false,
       },

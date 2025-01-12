@@ -17,6 +17,9 @@ function App() {
         `${import.meta.env.VITE_BACKEND_URL}/auth/user`,
         {
           withCredentials: true,
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         }
       );
       console.log(response);

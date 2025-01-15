@@ -8,13 +8,13 @@ dotenv.config();
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {
-    proxy: {
-      "/auth": {
-        target: process.env.VITE_BACKEND_URL,
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-  },
+  // server: {
+  //   proxy: {
+  //     "/auth": {
+  //       target: process.env.VITE_BACKEND_URL,
+  //       changeOrigin: true,
+  //       secure: false,
+  //     },
+  //   },
+  // },
 });

@@ -4,7 +4,7 @@ import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import useUser from "./api/useUser";
 import axios from "axios";
-import GitHubCallback from "./pages/GithubCallback/GithubCallback";
+// import GitHubCallback from "./pages/GithubCallback/GithubCallback";
 import { ToastContainer } from "react-toastify";
 
 function App() {
@@ -50,7 +50,7 @@ function App() {
             path="/login"
             element={<Login onLogin={handleGitHubLogin} />}
           />
-          <Route path="/auth/github/callback" element={<GitHubCallback />} />
+          {/* <Route path="/auth/github/callback" element={<GitHubCallback />} /> */}
 
           <Route path="/*" element={<Navigate to="/login" />} />
         </Routes>

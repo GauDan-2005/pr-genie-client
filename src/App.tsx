@@ -11,30 +11,30 @@ function App() {
   const [user, setUser] = useState(null);
   const { handleGitHubLogin } = useUser();
 
-  const checkLoginStatus = async () => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/auth/user`,
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
-      console.log(response);
-      if (response.data) {
-        setUser(response.data); // Set user data if authenticated
-        localStorage.setItem("user", JSON.stringify(response.data));
-      }
-    } catch (error) {
-      setUser(null);
-      console.log(error);
-    }
-  };
+  // const checkLoginStatus = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${import.meta.env.VITE_BACKEND_URL}/auth/user`,
+  //       {
+  //         withCredentials: true,
+  //         // headers: {
+  //         //   "Content-Type": "application/x-www-form-urlencoded",
+  //         // },
+  //       }
+  //     );
+  //     console.log(response);
+  //     if (response.data) {
+  //       setUser(response.data); // Set user data if authenticated
+  //       localStorage.setItem("user", JSON.stringify(response.data));
+  //     }
+  //   } catch (error) {
+  //     setUser(null);
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
-    checkLoginStatus();
+    // checkLoginStatus();
   }, []);
 
   return (

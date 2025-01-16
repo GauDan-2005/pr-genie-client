@@ -3,45 +3,23 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import useUser from "./api/useUser";
-import axios from "axios";
-// import GitHubCallback from "./pages/GithubCallback/GithubCallback";
 import { ToastContainer } from "react-toastify";
+import Success from "./pages/Success/Success";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [token, setToken] = useState<string | null>(null);
   const { handleGitHubLogin } = useUser();
 
-  // const checkLoginStatus = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `${import.meta.env.VITE_BACKEND_URL}/auth/user`,
-  //       {
-  //         withCredentials: true,
-  //         // headers: {
-  //         //   "Content-Type": "application/x-www-form-urlencoded",
-  //         // },
-  //       }
-  //     );
-  //     console.log(response);
-  //     if (response.data) {
-  //       setUser(response.data); // Set user data if authenticated
-  //       localStorage.setItem("user", JSON.stringify(response.data));
-  //     }
-  //   } catch (error) {
-  //     setUser(null);
-  //     console.log(error);
-  //   }
-  // };
-
   useEffect(() => {
-    // checkLoginStatus();
+    const userToken = localStorage.getItem("userToken");
+    if (userToken) setToken(userToken);
   }, []);
 
   return (
     <div className="App">
-      {user ? (
+      {token ? (
         <Routes>
-          <Route path="/dashboard" element={<Dashboard user={user} />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/*" element={<Navigate to="/dashboard" />} />
         </Routes>
       ) : (
@@ -50,7 +28,7 @@ function App() {
             path="/login"
             element={<Login onLogin={handleGitHubLogin} />}
           />
-          {/* <Route path="/auth/github/callback" element={<GitHubCallback />} /> */}
+          <Route path="/success" element={<Success />} />
 
           <Route path="/*" element={<Navigate to="/login" />} />
         </Routes>

@@ -5,12 +5,6 @@ import { errorToast, successToast } from "../../lib/toast";
 import RepoCard from "../../components/RepoCard/RepoCard";
 import useWebhooks from "../../api/useWebhooks";
 
-type User = {
-  id: string;
-  name: string;
-  email: string;
-};
-
 type Repo = {
   name: string;
   full_name: string;
@@ -29,16 +23,30 @@ type Repo = {
 
 type Repos = Repo[];
 
-type Props = {
-  user: User; // Adjust type to match your user object shape, e.g., `null | { id: string; name: string; }`
-};
-
-const Dashboard = ({ user }: Props) => {
+const Dashboard = () => {
   const [repos, setRepos] = useState<Repos>([]); // Set the type of repos as Repos (Repo[])
+  const [user, setUser] = useState<any>(null);
 
-  const { getUserRepos, logoutUser } = useUser();
+  const { getUserRepos, logoutUser, getUser } = useUser();
   const { createWebhook } = useWebhooks();
 
+  const getUserData = async () => {
+    try {
+      getUser((response, error) => {
+        if (error || response === null) {
+          errorToast("Failed fetching user data");
+          return;
+        }
+        successToast(response.message);
+        setUser(response.user);
+      });
+    } catch (err) {
+      errorToast("Failed to get repositories.");
+      console.log(err);
+    }
+  };
+
+  // get repository list
   const getRepositoryList = () => {
     try {
       getUserRepos((response, error) => {
@@ -83,8 +91,11 @@ const Dashboard = ({ user }: Props) => {
   };
 
   useEffect(() => {
+    getUserData();
     getRepositoryList();
   }, []);
+
+  console.log(user);
 
   return (
     <div className={styles.dashboard}>

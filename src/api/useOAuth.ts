@@ -107,7 +107,7 @@ const useOAuth = () => {
     // getRedirectUri,
     // verifyOAuthToken,
     // getOAuthCode,
-    handleGitHubCallback,
+    // handleGitHubCallback,
   };
 };
 

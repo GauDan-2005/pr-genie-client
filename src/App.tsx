@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import { ToastContainer } from "react-toastify";
 import Success from "./pages/Success/Success";
 
 function App() {
@@ -28,7 +27,6 @@ function App() {
           <Route path="/*" element={<Navigate to="/login" />} />
         </Routes>
       )}
-      <ToastContainer />
     </div>
   );
 }

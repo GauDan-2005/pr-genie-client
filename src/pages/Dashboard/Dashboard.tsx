@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useUser from "../../api/useUser";
 import styles from "./Dashboard.module.css";
-import { errorToast, successToast } from "../../lib/toast";
+import { showToast } from "../../lib/toast";
 import RepoCard from "../../components/RepoCard/RepoCard";
 import useWebhooks from "../../api/useWebhooks";
 
@@ -34,14 +34,14 @@ const Dashboard = () => {
     try {
       getUser((response, error) => {
         if (error || response === null) {
-          errorToast("Failed fetching user data");
+          showToast("error", "Failed fetching user data");
           return;
         }
-        successToast(response.message);
+        showToast("success", response.message);
         setUser(response.user);
       });
     } catch (err) {
-      errorToast("Failed to get repositories.");
+      showToast("error", "Failed to get repositories.");
       console.log(err);
     }
   };
@@ -51,7 +51,7 @@ const Dashboard = () => {
     try {
       getUserRepos((response, error) => {
         if (error || response === null) {
-          errorToast("Failed fetching repositories");
+          showToast("error", "Failed fetching repositories");
           return;
         }
 
@@ -74,7 +74,7 @@ const Dashboard = () => {
         setRepos(filteredRepos); // No more 'never[]' error
       });
     } catch (err) {
-      errorToast("Failed to get repositories.");
+      showToast("error", "Failed to get repositories.");
       console.log(err);
     }
   };
@@ -84,9 +84,9 @@ const Dashboard = () => {
     console.log("createwebhook entered");
     const result = await createWebhook(repo.name); // Call createWebhook
     if (result?.message === "Webhook created successfully") {
-      successToast("Webhook created successfully!");
+      showToast("success", "Webhook created successfully!");
     } else {
-      errorToast(result?.message || "Failed to create webhook");
+      showToast("error", result?.message || "Failed to create webhook");
     }
   };
 

@@ -1,3 +1,3 @@
-import { errorToast, successToast, infoToast, warningToast } from "./toast";
+import { showToast } from "./toast";
 
-export { errorToast, successToast, infoToast, warningToast };
+export { showToast };

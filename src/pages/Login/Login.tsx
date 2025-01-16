@@ -1,12 +1,12 @@
-type Peops = {
-  onLogin: () => void; // Define the onLogin prop type
-};
+import useOAuth from "../../api/useOAuth";
 
-const Login = (props: Peops) => {
+const Login = () => {
+  const { handleGitHubLogin } = useOAuth();
+
   return (
     <div>
       <h1>Login with Github</h1>
-      <button onClick={props.onLogin}>Login with GitHub</button>
+      <button onClick={handleGitHubLogin}>Login with GitHub</button>
     </div>
   );
 };

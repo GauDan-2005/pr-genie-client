@@ -5,18 +5,6 @@ const useUser = () => {
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("userToken");
 
-  const handleGitHubLogin = () => {
-    try {
-      setLoading(true);
-      window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/github`;
-      setLoading(false);
-    } catch (err) {
-      console.error("Github Login Failed", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const getUserRepos = async (
     cb: (data: [] | null, err: Error | unknown) => void
   ) => {
@@ -119,7 +107,6 @@ const useUser = () => {
     loading,
     getUser,
     getUserRepos,
-    handleGitHubLogin,
     logoutUser,
   };
 };

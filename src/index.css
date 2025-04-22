@@ -1,14 +1,111 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+:root,
+[data-theme="light"] {
+  /* GitHub light theme colors */
+  --color-bg-canvas: #ffffff;
+  --color-bg-default: #f6f8fa;
+  --color-bg-overlay: #ffffff;
+  --color-border-default: #d0d7de;
+  --color-border-muted: #d8dee4;
+  --color-fg-default: #24292f;
+  --color-fg-muted: #57606a;
+  --color-fg-subtle: #6e7781;
+  --color-accent-fg: #0969da;
+  --color-accent-emphasis: #0969da;
+  --color-danger-fg: #cf222e;
+  --color-success-fg: #1a7f37;
+  --color-btn-primary-bg: #2da44e;
+  --color-btn-primary-hover-bg: #2c974b;
+  --color-btn-primary-text: #ffffff;
+  --color-btn-border: rgba(27, 31, 36, 0.15);
+  --color-btn-hover-bg: #f3f4f6;
+  --color-btn-active-bg: #ebecf0;
+  --color-header-bg: #24292f;
+  --color-header-text: #ffffff;
+  --color-canvas-default: #ffffff;
+  --color-canvas-subtle: #f6f8fa;
+  --color-btn-primary-border: rgba(27, 31, 36, 0.15);
+  --color-btn-primary-selected-bg: #2a9147;
+  --color-scale-gray-0: #f6f8fa;
+  --color-scale-gray-1: #eaeef2;
+  --color-scale-gray-2: #d0d7de;
+  --color-scale-gray-3: #afb8c1;
+  --color-scale-gray-4: #8c959f;
+  --color-scale-gray-5: #6e7781;
+  --color-scale-gray-6: #57606a;
+  --color-scale-gray-7: #424a53;
+  --color-scale-gray-8: #32383f;
+  --color-scale-gray-9: #24292f;
+}
+
+[data-theme="dark"] {
+  /* GitHub dark theme colors */
+  --color-bg-canvas: #0d1117;
+  --color-bg-default: #161b22;
+  --color-bg-overlay: #1c2128;
+  --color-border-default: #30363d;
+  --color-border-muted: #21262d;
+  --color-fg-default: #c9d1d9;
+  --color-fg-muted: #8b949e;
+  --color-fg-subtle: #6e7681;
+  --color-accent-fg: #58a6ff;
+  --color-accent-emphasis: #1f6feb;
+  --color-danger-fg: #f85149;
+  --color-success-fg: #3fb950;
+  --color-btn-primary-bg: #238636;
+  --color-btn-primary-hover-bg: #2ea043;
+  --color-btn-primary-text: #ffffff;
+  --color-btn-border: rgba(240, 246, 252, 0.1);
+  --color-btn-hover-bg: #30363d;
+  --color-btn-active-bg: #21262d;
+  --color-header-bg: #161b22;
+  --color-header-text: #f0f6fc;
+  --color-canvas-default: #0d1117;
+  --color-canvas-subtle: #161b22;
+  --color-btn-primary-border: rgba(240, 246, 252, 0.1);
+  --color-btn-primary-selected-bg: #238636;
+  --color-scale-gray-0: #161b22;
+  --color-scale-gray-1: #21262d;
+  --color-scale-gray-2: #30363d;
+  --color-scale-gray-3: #484f58;
+  --color-scale-gray-4: #6e7681;
+  --color-scale-gray-5: #8b949e;
+  --color-scale-gray-6: #c9d1d9;
+  --color-scale-gray-7: #d0d7de;
+  --color-scale-gray-8: #e6edf3;
+  --color-scale-gray-9: #f0f6fc;
+
+  /* GitHub typography */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   line-height: 1.5;
+  font-size: 14px;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--color-fg-default);
+  background-color: var(--color-bg-canvas);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg-default);
+}
+
+a {
+  color: var(--color-accent-fg);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
 }

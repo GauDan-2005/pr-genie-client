@@ -26,6 +26,7 @@ type Repos = Repo[];
 const Dashboard = () => {
   const [repos, setRepos] = useState<Repos>([]); // Set the type of repos as Repos (Repo[])
   const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const { getUserRepos, logoutUser, getUser } = useUser();
   const { createWebhook } = useWebhooks();
@@ -41,17 +42,21 @@ const Dashboard = () => {
         setUser(response.user);
       });
     } catch (err) {
-      showToast("error", "Failed to get repositories.");
+      showToast("error", "Failed to get user data");
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   // get repository list
   const getRepositoryList = () => {
+    setLoading(true);
     try {
       getUserRepos((response, error) => {
         if (error || response === null) {
           showToast("error", "Failed fetching repositories");
+          setLoading(false);
           return;
         }
 
@@ -71,22 +76,28 @@ const Dashboard = () => {
           visibility: repo.visibility,
         }));
 
-        setRepos(filteredRepos); // No more 'never[]' error
+        setRepos(filteredRepos);
+        setLoading(false);
       });
     } catch (err) {
       showToast("error", "Failed to get repositories.");
       console.log(err);
+      setLoading(false);
     }
   };
 
   // Create webhook for a specific repository
   const handleCreateWebhook = async (repo: Repo) => {
-    console.log("createwebhook entered");
-    const result = await createWebhook(repo.name); // Call createWebhook
-    if (result?.message === "Webhook created successfully") {
-      showToast("success", "Webhook created successfully!");
-    } else {
-      showToast("error", result?.message || "Failed to create webhook");
+    try {
+      const result = await createWebhook(repo.name);
+      if (result?.message === "Webhook created successfully") {
+        showToast("success", "Webhook created successfully!");
+      } else {
+        showToast("error", result?.message || "Failed to create webhook");
+      }
+    } catch (error) {
+      showToast("error", "Failed to create webhook");
+      console.error(error);
     }
   };
 
@@ -95,32 +106,44 @@ const Dashboard = () => {
     getRepositoryList();
   }, []);
 
-  console.log(user);
+  if (loading) {
+    return (
+      <div className={styles.dashboard}>
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.dashboard}>
-      <h1>Dashboard</h1>
       {user ? (
         <>
-          <h3>Welcome, {user.name}!</h3>
-          <button className={styles.logout_btn} onClick={() => logoutUser()}>
-            Logout
-          </button>
-          <div className={styles.repo_wrapper}>
-            {repos.map((repo, idx) => (
-              <RepoCard
-                key={idx}
-                data={repo}
-                onClick={() => {
-                  handleCreateWebhook(repo);
-                  console.log("clicked");
-                }}
-              />
-            ))}
+          <div className={styles.header}>
+            <h3 className={styles.welcome}>Welcome, {user.name}!</h3>
+            <button className={styles.logout_btn} onClick={() => logoutUser()}>
+              Logout
+            </button>
+          </div>
+
+          <div className={styles.repo_section}>
+            <h2 className={styles.section_title}>Your Repositories</h2>
+            <div className={styles.repo_wrapper}>
+              {repos.length > 0 ? (
+                repos.map((repo, idx) => (
+                  <RepoCard
+                    key={idx}
+                    data={repo}
+                    onClick={() => handleCreateWebhook(repo)}
+                  />
+                ))
+              ) : (
+                <p>No repositories found</p>
+              )}
+            </div>
           </div>
         </>
       ) : (
-        <p>Please log in</p>
+        <p>Please log in to view your dashboard</p>
       )}
     </div>
   );

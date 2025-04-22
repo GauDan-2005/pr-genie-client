@@ -1,6 +1,26 @@
-#root {
+.App {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 0 16px;
+  width: 100%;
+}
+
+.header {
+  background-color: var(--color-header-bg);
+  color: var(--color-header-text);
+  padding: 16px 0;
+  display: flex;
+  align-items: center;
+}
+
+.main-content {
+  flex: 1;
+  padding: 24px 0;
 }

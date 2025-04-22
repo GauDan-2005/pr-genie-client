@@ -1,16 +1,17 @@
 import { useState } from "react";
 import axios from "axios";
+import { Repo } from "../utils/type";
 
 const useWebhooks = () => {
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("userToken");
 
-  const createWebhook = async (repoName: string) => {
+  const createWebhook = async (repo: Repo) => {
     setLoading(true);
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/webhooks/create-webhook`,
-        { repo: repoName }, // Pass repo name and owner
+        { repo }, // Pass repo name and owner
         {
           headers: {
             Authorization: "Bearer " + token,

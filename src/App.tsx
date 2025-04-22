@@ -13,7 +13,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="min-w-full min-h-screen p-8">
       {token ? (
         <Routes>
           <Route path="/dashboard" element={<Dashboard />} />

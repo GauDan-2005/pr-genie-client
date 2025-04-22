@@ -1,25 +1,9 @@
 import { useEffect, useState } from "react";
 import useUser from "../../api/useUser";
-import styles from "./Dashboard.module.css";
 import { showToast } from "../../lib/toast";
 import RepoCard from "../../components/RepoCard/RepoCard";
 import useWebhooks from "../../api/useWebhooks";
-
-type Repo = {
-  name: string;
-  full_name: string;
-  html_url: string;
-  description: string;
-  language: string;
-  default_branch: string;
-  created_at: string;
-  updated_at: string;
-  clone_url: string;
-  forks_count: number;
-  stargazers_count: number;
-  open_issues_count: number;
-  visibility: string;
-};
+import { Repo } from "../../utils/type";
 
 type Repos = Repo[];
 
@@ -56,6 +40,7 @@ const Dashboard = () => {
         }
 
         const filteredRepos: Repos = response.map((repo: Repo) => ({
+          id: repo.id,
           name: repo.name,
           full_name: repo.full_name,
           html_url: repo.html_url,
@@ -70,6 +55,7 @@ const Dashboard = () => {
           open_issues_count: repo.open_issues_count,
           visibility: repo.visibility,
         }));
+        console.log(filteredRepos);
 
         setRepos(filteredRepos); // No more 'never[]' error
       });
@@ -82,7 +68,7 @@ const Dashboard = () => {
   // Create webhook for a specific repository
   const handleCreateWebhook = async (repo: Repo) => {
     console.log("createwebhook entered");
-    const result = await createWebhook(repo.name); // Call createWebhook
+    const result = await createWebhook(repo); // Call createWebhook
     if (result?.message === "Webhook created successfully") {
       showToast("success", "Webhook created successfully!");
     } else {
@@ -95,30 +81,33 @@ const Dashboard = () => {
     getRepositoryList();
   }, []);
 
-  console.log(user);
-
   return (
-    <div className={styles.dashboard}>
-      <h1>Dashboard</h1>
+    <div className="flex flex-col items-center justify-center gap-8">
+      <h1 className="text-4xl text">Dashboard</h1>
       {user ? (
-        <>
-          <h3>Welcome, {user.name}!</h3>
-          <button className={styles.logout_btn} onClick={() => logoutUser()}>
+        <div className="flex flex-col items-center justify-center gap-6">
+          <h3 className="text-xl">Welcome, {user.name}!</h3>
+          <button
+            className="bg-red-700 hover:bg-red-800 text-base text-white font-bold px-6 py-2 rounded-lg cursor-pointer transition-all duration-300"
+            onClick={() => logoutUser()}
+          >
             Logout
           </button>
-          <div className={styles.repo_wrapper}>
-            {repos.map((repo, idx) => (
-              <RepoCard
-                key={idx}
-                data={repo}
-                onClick={() => {
-                  handleCreateWebhook(repo);
-                  console.log("clicked");
-                }}
-              />
-            ))}
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 w-full px-10">
+            {repos.map((repo, idx) => {
+              return (
+                <RepoCard
+                  key={idx}
+                  data={repo}
+                  onClick={() => {
+                    console.log(repo);
+                    handleCreateWebhook(repo);
+                  }}
+                />
+              );
+            })}
           </div>
-        </>
+        </div>
       ) : (
         <p>Please log in</p>
       )}

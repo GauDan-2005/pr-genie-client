@@ -5,10 +5,10 @@ const Login = () => {
   const { handleGitHubLogin } = useOAuth();
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-[#0d1117] p-4">
-      <div className="w-full max-w-sm rounded-lg border border-[#30363d] bg-[#161b22] p-6 shadow-md">
-        <div className="mb-6 flex justify-center">
-          <div className="text-white">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4">
+      <div className="w-full max-w-sm rounded-lg border border-gray-800 bg-foreground/5 p-6 shadow-md">
+        <div className="mb-2 flex justify-center">
+          <div className="text-foreground h-12 w-12">
             <svg
               role="img"
               viewBox="0 0 24 24"
@@ -20,18 +20,18 @@ const Login = () => {
           </div>
         </div>
 
-        <h1 className="mb-2 text-center text-2xl font-semibold text-white">
+        <h1 className="mb-2 text-center text-2xl font-semibold text-foreground">
           Sign in to GitHub
         </h1>
-        <p className="mb-6 text-center text-sm text-[#8b949e]">
+        <p className="mb-6 text-center text-sm text-foreground/60">
           Use your GitHub account to continue
         </p>
 
         <Button
           onClick={handleGitHubLogin}
-          className="w-full bg-[#238636] text-white hover:bg-[#2ea043]"
+          className="w-full bg-[#2ea043] text-foreground hover:bg-[#238636]"
         >
-          <div className="text-white">
+          <div className="text-foreground">
             <svg
               role="img"
               viewBox="0 0 24 24"

@@ -11,7 +11,7 @@ const useUser = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/user/repo`,
+        `${import.meta.env.VITE_BACKEND_URL}/repositories`,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -32,6 +32,43 @@ const useUser = () => {
     } catch (err) {
       console.error(err);
 
+      if (cb && typeof cb === "function") {
+        cb(null, err);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fixed getOpenPRs function
+  const getOpenPRs = async (
+    username: string,
+    repoName: string,
+    userToken: string,
+    cb: (data: any[] | null, err: Error | unknown) => void
+  ) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `https://api.github.com/repos/${username}/${repoName}/pulls`,
+        {
+          headers: {
+            Authorization: `token ${userToken}`,
+            "X-GitHub-Api-Version": "2022-11-28",
+            Accept: "application/vnd.github+json",
+          },
+        }
+      );
+      if (response.status !== 200) {
+        throw new Error(
+          response.data.error || "Some error occurred, please try again"
+        );
+      }
+      if (cb && typeof cb === "function") {
+        cb(response.data, null);
+      }
+    } catch (err) {
+      console.error(err);
       if (cb && typeof cb === "function") {
         cb(null, err);
       }
@@ -107,6 +144,7 @@ const useUser = () => {
     loading,
     getUser,
     getUserRepos,
+    getOpenPRs,
     logoutUser,
   };
 };

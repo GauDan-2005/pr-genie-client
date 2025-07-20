@@ -33,7 +33,34 @@ const useWebhooks = () => {
     }
   };
 
-  return { loading, createWebhook };
+  const deleteWebhook = async (repo: Repo) => {
+    setLoading(true);
+    try {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/webhooks/delete-webhook`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+          withCredentials: true,
+          data: { repo }, // Pass repo data in request body for DELETE
+        }
+      );
+      if (response.status !== 200) {
+        throw new Error(
+          response.data.error || "Some error occurred, please try again"
+        );
+      }
+      setLoading(false);
+      return response.data;
+    } catch (err) {
+      setLoading(false);
+      console.error("Error deleting webhook:", err);
+      return { message: "Error deleting webhook" };
+    }
+  };
+
+  return { loading, createWebhook, deleteWebhook };
 };
 
 export default useWebhooks;
